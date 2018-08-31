@@ -13,13 +13,15 @@ namespace Tests
             "third string"
         };
 
+        // 53.04 ns
         [Benchmark]
         public void EnumerableContains()
         {
             bool result = stringArray3.Contains("second");
         }
 
-        [Benchmark]
+        // 28.76 ns
+        [Benchmark] 
         public void ArrayIndexOf()
         {
             bool result = Array.IndexOf(stringArray3, "second") > -1;
