@@ -8,7 +8,8 @@ namespace Benchmark
     {
         static void Main(string[] args)
         {
-            BenchmarkRunner.Run<Collections>();
+            // BenchmarkRunner.Run<Collections>();
+            BenchmarkRunner.Run<MethodGroupDelegate>();
         }
     }
 }
