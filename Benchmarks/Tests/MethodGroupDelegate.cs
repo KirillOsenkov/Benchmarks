@@ -6,13 +6,6 @@ namespace Tests
 {
     public class MethodGroupDelegate
     {
-        private readonly string[] stringArray3 = new[]
-        {
-            "first",
-            "second string",
-            "third string"
-        };
-
         private const int UpperBound = 10000;
 
         // 117.96 us
