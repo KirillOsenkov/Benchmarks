@@ -20,7 +20,7 @@ namespace Tests
             { "PathInPackage", "lib/netstandard2.0/ICSharpCode.Decompiler.dll" },
         };
 
-        // 4.189 us, 260 bytes allocated
+        // 4.160 us, 260 bytes allocated
         [Benchmark]
         public void OrderBy()
         {
@@ -35,7 +35,7 @@ namespace Tests
             return StringComparer.OrdinalIgnoreCase.Compare(left.Item1, right.Item1);
         }
 
-        // 1.047 us, 144 bytes allocated
+        // 1.048 us, 144 bytes allocated
         [Benchmark]
         public void SortInPlaceMethodGroup()
         {
@@ -53,7 +53,7 @@ namespace Tests
             }
         }
 
-        // 1.041 us, 112 bytes allocated
+        // 1.040 us, 112 bytes allocated
         [Benchmark]
         public void SortInPlaceLambda()
         {
@@ -65,6 +65,24 @@ namespace Tests
             }
 
             list.Sort((l, r) => StringComparer.OrdinalIgnoreCase.Compare(l.key, r.key));
+
+            foreach (var kvp in list)
+            {
+            }
+        }
+
+        // 1.037 us, 112 bytes allocated
+        [Benchmark]
+        public void SortInPlaceKeyValuePair()
+        {
+            var list = new List<KeyValuePair<string, string>>(dictionary.Count);
+
+            foreach (var kvp in dictionary)
+            {
+                list.Add(kvp);
+            }
+
+            list.Sort((l, r) => StringComparer.OrdinalIgnoreCase.Compare(l.Key, r.Key));
 
             foreach (var kvp in list)
             {
