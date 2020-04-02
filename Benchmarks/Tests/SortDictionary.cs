@@ -88,6 +88,16 @@ namespace Tests
             {
             }
         }
+
+        [Benchmark]
+        public void SortInPlaceCopyToKeyValuePair()
+        {
+            var list = new KeyValuePair<string, string>[dictionary.Count];
+
+            ((ICollection<KeyValuePair<string, string>>)dictionary).CopyTo(list, 0);
+
+            Array.Sort(list, (l, r) => string.Compare(l.Key, r.Key, StringComparison.OrdinalIgnoreCase));
+        } 
         
         [Benchmark]
         public void SortedListAdd()
