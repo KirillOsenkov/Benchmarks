@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 
@@ -25,6 +26,24 @@ namespace Tests
         public void OrderBy()
         {
             var result = dictionary.OrderBy(kvp => kvp.Key);
+            foreach (var item in result)
+            {
+            }
+        }
+
+        [Benchmark]
+        public void SortedDictionary()
+        {
+            var result = new SortedDictionary<string, string>(dictionary);
+            foreach (var item in result)
+            {
+            }
+        }
+
+        [Benchmark]
+        public void SortedList()
+        {
+            var result = new SortedList<string, string>(dictionary);
             foreach (var item in result)
             {
             }
@@ -86,6 +105,111 @@ namespace Tests
 
             foreach (var kvp in list)
             {
+            }
+        }
+
+        [Benchmark]
+        public void SortWhileProducing()
+        {
+            var enumerator = dictionary.GetEnumerator();
+
+            if (enumerator.MoveNext())
+            {
+                var buffer = new KeyValuePair<string, string>[dictionary.Count - 1];
+                var smaller = enumerator.Current;
+
+                for (var i = 0; enumerator.MoveNext();)
+                {
+                    if (enumerator.Current.Key.CompareTo(smaller.Key) < 0)
+                    {
+                        buffer[i++] = smaller;
+                        smaller = enumerator.Current;
+                    }
+                    else
+                    {
+                        buffer[i++] = enumerator.Current;
+                    }
+                }
+
+                enumerator.Dispose();
+
+                // Debug.WriteLine(smaller.ToString());
+
+                for (var i = 0; i < buffer.Length - 1; i++)
+                {
+                    smaller = buffer[i];
+
+                    for (var j = i + 1; j < buffer.Length; j++)
+                    {
+                        var current = buffer[j];
+
+                        if (current.Key.CompareTo(smaller.Key) <= 0)
+                        {
+                            buffer[j] = smaller;
+                            smaller = current;
+                        }
+                    }
+
+                    // Debug.WriteLine(smaller.ToString());
+                }
+
+                // Debug.WriteLine(buffer[buffer.Length - 1].ToString());
+            }
+        }
+
+        [Benchmark]
+        public void Enumerable()
+        {
+            foreach (var kvp in GetEnumerator(dictionary))
+            {
+            }
+
+            IEnumerable<KeyValuePair<string, string>> GetEnumerator(Dictionary<string, string> dictionary)
+            {
+                var enumerator = dictionary.GetEnumerator();
+
+                if (enumerator.MoveNext())
+                {
+                    var buffer = new KeyValuePair<string, string>[dictionary.Count - 1];
+                    var smaller = enumerator.Current;
+
+                    for (var i = 0; enumerator.MoveNext();)
+                    {
+                        if (enumerator.Current.Key.CompareTo(smaller.Key) < 0)
+                        {
+                            buffer[i++] = smaller;
+                            smaller = enumerator.Current;
+                        }
+                        else
+                        {
+                            buffer[i++] = enumerator.Current;
+                        }
+                    }
+
+                    enumerator.Dispose();
+
+                    yield return smaller;
+
+                    for (var i = 0; i < buffer.Length - 1; i++)
+                    {
+                        smaller = buffer[i];
+
+                        for (var j = i + 1; j < buffer.Length; j++)
+                        {
+                            var current = buffer[j];
+
+                            if (current.Key.CompareTo(smaller.Key) <= 0)
+                            {
+                                buffer[j] = smaller;
+                                smaller = current;
+                            }
+                        }
+
+                        yield return smaller;
+                    }
+
+                    yield return buffer[buffer.Length - 1];
+                }
             }
         }
     }
