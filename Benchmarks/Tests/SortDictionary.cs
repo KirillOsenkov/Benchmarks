@@ -88,5 +88,30 @@ namespace Tests
             {
             }
         }
+        
+        [Benchmark]
+        public void SortedListAdd()
+        {
+            var list = new SortedList<string, string>(dictionary.Count, StringComparer.OrdinalIgnoreCase);
+
+            foreach (var kvp in dictionary)
+            {
+                list.Add(kvp.Key, kvp.Value);
+            }
+
+            foreach (var kvp in list)
+            {
+            }
+        }
+
+        [Benchmark]
+        public void SortedListConstructor()
+        {
+            var list = new SortedList<string, string>(dictionary, StringComparer.OrdinalIgnoreCase);
+
+            foreach (var kvp in list)
+            {
+            }
+        }
     }
 }
