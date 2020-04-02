@@ -97,6 +97,27 @@ namespace Tests
             ((ICollection<KeyValuePair<string, string>>)dictionary).CopyTo(list, 0);
 
             Array.Sort(list, (l, r) => string.Compare(l.Key, r.Key, StringComparison.OrdinalIgnoreCase));
+        } 
+        
+        [Benchmark]
+        public void SortedListAdd()
+        {
+            var list = new SortedList<string, string>(dictionary.Count, StringComparer.OrdinalIgnoreCase);
+
+            foreach (var kvp in dictionary)
+            {
+                list.Add(kvp.Key, kvp.Value);
+            }
+
+            foreach (var kvp in list)
+            {
+            }
+        }
+
+        [Benchmark]
+        public void SortedListConstructor()
+        {
+            var list = new SortedList<string, string>(dictionary, StringComparer.OrdinalIgnoreCase);
 
             foreach (var kvp in list)
             {
