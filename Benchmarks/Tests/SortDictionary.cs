@@ -152,7 +152,7 @@ namespace Tests
 
                 for (var i = 0; enumerator.MoveNext();)
                 {
-                    if (enumerator.Current.Key.CompareTo(smaller.Key) < 0)
+                    if (string.Compare(enumerator.Current.Key, smaller.Key, StringComparison.OrdinalIgnoreCase) < 0)
                     {
                         buffer[i++] = smaller;
                         smaller = enumerator.Current;
@@ -175,7 +175,7 @@ namespace Tests
                     {
                         var current = buffer[j];
 
-                        if (current.Key.CompareTo(smaller.Key) <= 0)
+                        if (string.Compare(current.Key, smaller.Key, StringComparison.OrdinalIgnoreCase) <= 0)
                         {
                             buffer[j] = smaller;
                             smaller = current;
@@ -207,7 +207,7 @@ namespace Tests
 
                     for (var i = 0; enumerator.MoveNext();)
                     {
-                        if (enumerator.Current.Key.CompareTo(smaller.Key) < 0)
+                        if (string.Compare(enumerator.Current.Key, smaller.Key, StringComparison.OrdinalIgnoreCase) < 0)
                         {
                             buffer[i++] = smaller;
                             smaller = enumerator.Current;
@@ -230,7 +230,7 @@ namespace Tests
                         {
                             var current = buffer[j];
 
-                            if (current.Key.CompareTo(smaller.Key) <= 0)
+                            if (string.Compare(current.Key, smaller.Key, StringComparison.OrdinalIgnoreCase) <= 0)
                             {
                                 buffer[j] = smaller;
                                 smaller = current;
