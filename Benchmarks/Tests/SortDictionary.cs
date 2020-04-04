@@ -7,17 +7,17 @@ using BenchmarkDotNet.Attributes;
 /*
 |                        Method |       Mean |    Error |   StdDev |  Gen 0 | Gen 1 | Gen 2 | Allocated |
 |------------------------------ |-----------:|---------:|---------:|-------:|------:|------:|----------:|
-| SortInPlaceCopyToKeyValuePair |   757.7 ns |  5.02 ns |  4.69 ns | 0.0210 |     - |     - |      88 B |
-|         SortedListConstructor |   912.2 ns |  9.45 ns |  7.38 ns | 0.0381 |     - |     - |     160 B |
-|                 SortedListAdd |   987.3 ns |  7.37 ns |  6.90 ns | 0.0381 |     - |     - |     160 B |
-|       SortInPlaceKeyValuePair | 1,043.0 ns | 19.18 ns | 16.02 ns | 0.0267 |     - |     - |     112 B |
-|             SortInPlaceLambda | 1,043.8 ns | 10.67 ns |  9.98 ns | 0.0267 |     - |     - |     112 B |
-|        SortInPlaceMethodGroup | 1,052.1 ns |  5.81 ns |  5.43 ns | 0.0343 |     - |     - |     144 B |
-|              SortedDictionary | 2,241.1 ns |  7.65 ns |  5.97 ns | 0.0916 |     - |     - |     389 B |
-|            SortWhileProducing | 2,712.3 ns | 16.36 ns | 15.30 ns | 0.0153 |     - |     - |      68 B |
-|                    Enumerable | 2,900.2 ns | 20.54 ns | 17.15 ns | 0.0229 |     - |     - |     108 B |
-|                       OrderBy | 4,197.6 ns | 48.90 ns | 45.74 ns | 0.0610 |     - |     - |     260 B |
- */
+| SortInPlaceCopyToKeyValuePair |   761.2 ns |  6.43 ns |  6.02 ns | 0.0210 |     - |     - |      88 B |
+|         SortedListConstructor |   915.4 ns | 15.55 ns | 13.78 ns | 0.0381 |     - |     - |     160 B |
+|                 SortedListAdd |   982.7 ns | 11.15 ns |  9.31 ns | 0.0381 |     - |     - |     160 B |
+|       SortInPlaceKeyValuePair | 1,034.6 ns | 14.48 ns | 13.54 ns | 0.0267 |     - |     - |     112 B |
+|             SortInPlaceLambda | 1,043.4 ns |  9.94 ns |  9.30 ns | 0.0267 |     - |     - |     112 B |
+|        SortInPlaceMethodGroup | 1,063.3 ns | 11.14 ns |  9.30 ns | 0.0343 |     - |     - |     144 B |
+|              SortedDictionary | 2,219.0 ns | 30.07 ns | 28.12 ns | 0.0916 |     - |     - |     389 B |
+|                       OrderBy | 4,153.3 ns | 49.16 ns | 41.05 ns | 0.0610 |     - |     - |     260 B |
+|            SortWhileProducing |   476.5 ns |  3.91 ns |  3.66 ns | 0.0162 |     - |     - |      68 B | WARNING: bubble sort O(n^2)
+|                    Enumerable |   696.8 ns |  9.22 ns |  8.62 ns | 0.0257 |     - |     - |     108 B | WARNING: bubble sort O(n^2)
+*/
 
 namespace Tests
 {
@@ -140,6 +140,9 @@ namespace Tests
             return StringComparer.OrdinalIgnoreCase.Compare(left.Item1, right.Item1);
         }
 
+        /// <summary>
+        /// WARNING: bubble sort O(n^2)
+        /// </summary>
         [Benchmark]
         public void SortWhileProducing()
         {
@@ -189,6 +192,9 @@ namespace Tests
             }
         }
 
+        /// <summary>
+        /// WARNING: bubble sort O(n^2)
+        /// </summary>
         [Benchmark]
         public void Enumerable()
         {
