@@ -10,7 +10,7 @@ namespace Benchmark
         {
             // BenchmarkRunner.Run<Collections>();
             // BenchmarkRunner.Run<MethodGroupDelegate>();
-            BenchmarkRunner.Run<SortDictionary>();
+            BenchmarkRunner.Run<DictionaryOfValueVsReferenceTypes>();
         }
     }
 }
