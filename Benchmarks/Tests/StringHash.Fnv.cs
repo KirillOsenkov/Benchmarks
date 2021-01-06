@@ -3,17 +3,6 @@
 
 namespace Tests
 {
-    /// <summary>
-    /// |      Method |      Mean |     Error |    StdDev |
-    /// |------------ |----------:|----------:|----------:|
-    /// | Fnv1a32Fast |  6.256 us | 0.0269 us | 0.0252 us |
-    /// | Fnv1a64Fast | 21.882 us | 0.0611 us | 0.0542 us |
-    /// |     Fnv1a32 | 12.900 us | 0.0433 us | 0.0405 us |
-    /// |     Fnv1a64 | 43.372 us | 0.2000 us | 0.1871 us |
-    /// |    Marvin32 | 15.825 us | 0.0257 us | 0.0215 us |
-    /// |        djb2 |  6.317 us | 0.0164 us | 0.0146 us |
-    /// |   Framework |  2.844 us | 0.0072 us | 0.0067 us |
-    /// </summary>
     public struct FnvHash32
     {
         public const uint Offset = 2166136261;
