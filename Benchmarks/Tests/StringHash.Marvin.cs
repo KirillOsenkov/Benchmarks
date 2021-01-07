@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 
 namespace System
 {
-    internal static partial class Marvin
+    public static partial class Marvin
     {
         /// <summary>
         /// Compute a Marvin hash and collapse it into a 32-bit hash.
