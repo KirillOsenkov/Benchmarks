@@ -11,16 +11,18 @@ namespace Tests
     /// Results for .NET Framework 32-bit runtime
     /// |      Method |      Mean |     Error |    StdDev |
     /// |------------ |----------:|----------:|----------:|
-    /// |   Framework |  2.849 us | 0.0116 us | 0.0108 us |
-    /// |    xxHash32 |  5.466 us | 0.0371 us | 0.0347 us |
-    /// |        djb2 |  6.327 us | 0.0319 us | 0.0298 us |
-    /// | Fnv1a32Fast |  6.359 us | 0.0442 us | 0.0413 us |
-    /// |     Fnv1a32 | 13.143 us | 0.0959 us | 0.0897 us |
-    /// |    Marvin32 | 15.823 us | 0.0453 us | 0.0402 us |
-    /// |    xxHash64 | 20.982 us | 0.2679 us | 0.2506 us |
-    /// | Fnv1a64Fast | 22.306 us | 0.1894 us | 0.1772 us |
-    /// |     Fnv1a64 | 43.522 us | 0.2434 us | 0.2277 us |
-    /// /// </summary>
+    /// |   Framework |  2.873 us | 0.0254 us | 0.0238 us |
+    /// |  Murmur3_32 |  3.518 us | 0.0195 us | 0.0183 us |
+    /// |    xxHash32 |  5.450 us | 0.0564 us | 0.0528 us |
+    /// | Fnv1a32Fast |  6.331 us | 0.0756 us | 0.0707 us |
+    /// |        djb2 |  6.349 us | 0.0229 us | 0.0214 us |
+    /// |     Fnv1a32 | 13.036 us | 0.1097 us | 0.1027 us |
+    /// |    Marvin32 | 15.898 us | 0.0689 us | 0.0645 us |
+    /// |    xxHash64 | 20.799 us | 0.0791 us | 0.0701 us |
+    /// | Fnv1a64Fast | 22.326 us | 0.1984 us | 0.1856 us |
+    /// | Murmur3_128 | 28.284 us | 0.0924 us | 0.0819 us |
+    /// |     Fnv1a64 | 43.616 us | 0.1043 us | 0.0871 us |
+    /// </summary>
     public class StringHash
     {
         private List<KeyValuePair<string, string>> data = Environment
@@ -123,6 +125,28 @@ namespace Tests
                 var kvp = data[i];
                 var keyHash = Djb2.GetHashCode(kvp.Key);
                 var valueHash = Djb2.GetHashCode(kvp.Value);
+            }
+        }
+
+        [Benchmark]
+        public void Murmur3_32()
+        {
+            for (int i = 0; i < data.Count; i++)
+            {
+                var kvp = data[i];
+                var keyHash = MurmurHash3_32.Create(kvp.Key).Hash;
+                var valueHash = MurmurHash3_32.Create(kvp.Value).Hash;
+            }
+        }
+
+        [Benchmark]
+        public void Murmur3_128()
+        {
+            for (int i = 0; i < data.Count; i++)
+            {
+                var kvp = data[i];
+                var keyHash = MurmurHash3.Create(kvp.Key).Low;
+                var valueHash = MurmurHash3.Create(kvp.Value).Low;
             }
         }
 
