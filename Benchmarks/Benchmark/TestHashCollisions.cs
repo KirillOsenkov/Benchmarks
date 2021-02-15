@@ -107,6 +107,8 @@ namespace Benchmark
             info.Results.Add(GetCollisions(strings, "Marvin", s => (ulong)Marvin.ComputeHash32(s)));
             info.Results.Add(GetCollisions(strings, "Murmur3-32", s => (ulong)Tests.MurmurHash3_32.Create(s).Hash));
             info.Results.Add(GetCollisions(strings, "Murmur3-128", s => (ulong)Tests.MurmurHash3.Create(s).Low));
+            info.Results.Add(GetCollisions(strings, "Sha256-64", s => (ulong)Tests.StringHash.GetSha256First64(s)));
+            info.Results.Add(GetCollisions(strings, "Sha256-32", s => (ulong)Tests.StringHash.GetSha256First32(s)));
 
             return info;
         }

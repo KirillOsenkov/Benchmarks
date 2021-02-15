@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using BenchmarkDotNet.Attributes;
 
 namespace Tests
@@ -115,6 +116,37 @@ namespace Tests
         //[Benchmark]
         public void Marvin64()
         {
+        }
+
+        [Benchmark]
+        public void Sha256First64()
+        {
+            for (int i = 0; i < data.Count; i++)
+            {
+                var kvp = data[i];
+                var keyHash = GetSha256First64(kvp.Key);
+                var valueHash = GetSha256First64(kvp.Value);
+            }
+        }
+
+        private static SHA256 Sha256 = SHA256.Create();
+
+        public static ulong GetSha256First64(string text)
+        {
+            var span = text.AsSpan();
+            var bytes = MemoryMarshal.Cast<char, byte>(span);
+            var hashSpan = Sha256.ComputeHash(bytes.ToArray()).AsSpan();
+            var result = MemoryMarshal.Cast<byte, ulong>(hashSpan)[0];
+            return result;
+        }
+
+        public static int GetSha256First32(string text)
+        {
+            var span = text.AsSpan();
+            var bytes = MemoryMarshal.Cast<char, byte>(span);
+            var hashSpan = Sha256.ComputeHash(bytes.ToArray()).AsSpan();
+            var result = MemoryMarshal.Cast<byte, int>(hashSpan)[0];
+            return result;
         }
 
         [Benchmark]

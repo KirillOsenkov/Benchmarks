@@ -11,4 +11,8 @@
     <ProjectReference Include="..\Tests\Tests.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
 </Project>

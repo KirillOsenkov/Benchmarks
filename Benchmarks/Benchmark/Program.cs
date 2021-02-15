@@ -12,6 +12,7 @@ namespace Benchmark
             // BenchmarkRunner.Run<MethodGroupDelegate>();
             BenchmarkRunner.Run<StringHash>();
             // TestHashCollisions.Run();
+            // Console.ReadLine();
         }
     }
 }
