@@ -24,6 +24,7 @@ namespace Tests
         private Regex regex4 = new Regex(@"Task "".*?"" skipped, due to false condition; \(.*?\) was evaluated as \(.*?\)\.");
         private Regex regex5 = new Regex(@"Task "".*?"" skipped, due to false condition; \(.*?\) was evaluated as \(.*?\)\.", RegexOptions.Compiled);
         private Regex regex6 = new Regex(@"Task "".*?"" skipped, due to false condition; \(.*?\) was evaluated as \(.*?\)\.", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private Regex regex7 = new Regex(@"Task "".*"" skipped, due to false condition; \(.*\) was evaluated as \(.*\)\.", RegexOptions.Compiled);
         private string text = @"Task ""Error"" skipped, due to false condition; (('$(CurrentSolutionConfigurationContents)' == '') and ('$(SkipInvalidConfigurations)' != 'true')) was evaluated as (('<SolutionConfiguration>('' != 'true')).";
 
         [Benchmark]
@@ -66,6 +67,12 @@ namespace Tests
         public void RegexCultureInvariant()
         {
             _ = regex6.IsMatch(text);
+        }
+
+        [Benchmark]
+        public void Regex7()
+        {
+            _ = regex7.IsMatch(text);
         }
     }
 }
