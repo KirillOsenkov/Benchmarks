@@ -6,13 +6,14 @@ using BenchmarkDotNet.Attributes;
 namespace Tests
 {
     /*
-    |        Method |     Mean |     Error |    StdDev |
-    |-------------- |---------:|----------:|----------:|
-    |        Regex1 | 8.914 us | 0.1155 us | 0.1024 us |
-    | RegexCompiled | 3.954 us | 0.0356 us | 0.0316 us |
-    |        Regex3 | 5.897 us | 0.0796 us | 0.0745 us |
-    |        Regex4 | 3.496 us | 0.0255 us | 0.0213 us |
-    |        Regex5 | 1.342 us | 0.0081 us | 0.0076 us |
+    |            Method |     Mean |     Error |    StdDev |
+    |------------------ |---------:|----------:|----------:|
+    |            Regex1 | 9.147 us | 0.0619 us | 0.0549 us |
+    |     RegexCompiled | 4.055 us | 0.0333 us | 0.0260 us |
+    |            Regex3 | 6.049 us | 0.0383 us | 0.0358 us |
+    |            Regex4 | 3.573 us | 0.0304 us | 0.0285 us |
+    |            Regex5 | 1.418 us | 0.0116 us | 0.0108 us |
+    | RegexMatchSuccess | 1.423 us | 0.0103 us | 0.0096 us |
     */
     public class Regexes
     {
@@ -51,6 +52,12 @@ namespace Tests
         public void Regex5()
         {
             _ = regex5.IsMatch(text);
+        }
+
+        [Benchmark]
+        public void RegexMatchSuccess()
+        {
+            _ = regex5.Match(text).Success;
         }
     }
 }
