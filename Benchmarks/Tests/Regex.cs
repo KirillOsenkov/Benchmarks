@@ -8,13 +8,14 @@ namespace Tests
     /*
     |                Method |     Mean |     Error |    StdDev |
     |---------------------- |---------:|----------:|----------:|
-    |                Regex1 | 9.163 us | 0.1135 us | 0.0886 us |
-    |         RegexCompiled | 4.196 us | 0.0364 us | 0.0322 us |
-    |                Regex3 | 6.066 us | 0.0409 us | 0.0342 us |
-    |                Regex4 | 3.557 us | 0.0282 us | 0.0250 us |
-    |                Regex5 | 1.363 us | 0.0081 us | 0.0076 us |
-    |     RegexMatchSuccess | 1.486 us | 0.0297 us | 0.0520 us |
-    | RegexCultureInvariant | 1.366 us | 0.0099 us | 0.0093 us |
+    |                Regex1 | 9.185 us | 0.0758 us | 0.0672 us |
+    |         RegexCompiled | 4.078 us | 0.0254 us | 0.0212 us |
+    |                Regex3 | 6.125 us | 0.0375 us | 0.0333 us |
+    |                Regex4 | 3.590 us | 0.0661 us | 0.0552 us |
+    |                Regex5 | 1.443 us | 0.0108 us | 0.0096 us |
+    |     RegexMatchSuccess | 1.423 us | 0.0086 us | 0.0081 us |
+    | RegexCultureInvariant | 1.364 us | 0.0127 us | 0.0119 us |
+    |                Regex7 | 2.902 us | 0.0215 us | 0.0191 us |
     */
     public class Regexes
     {
