@@ -10,7 +10,8 @@ namespace Benchmark
         {
             // BenchmarkRunner.Run<Collections>();
             // BenchmarkRunner.Run<MethodGroupDelegate>();
-            BenchmarkRunner.Run<SwitchStatement>();
+            // BenchmarkRunner.Run<SwitchStatement>();
+            BenchmarkRunner.Run<Regexes>();
             // TestHashCollisions.Run();
             // Console.ReadLine();
         }

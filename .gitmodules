@@ -1,0 +1,3 @@
+[submodule "src/regXwild"]
+	path = src/regXwild
+	url = https://github.com/3F/regXwild.git
