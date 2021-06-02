@@ -6,16 +6,18 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <regXwildSrcPath>$(MSBuildProjectDirectory)\..\regXwild\</regXwildSrcPath>
+    <!-- Affects regXwild Unicode/MultiByte module use -->
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.12.0" />
-    <PackageReference Include="Conari" Version="1.4.0" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.0" />
+    <PackageReference Include="Conari" Version="1.5.0" />
+    <PackageReference Include="regXwild" Version="1.4.0" />
     <PackageReference Include="Standart.Hash.xxHash" Version="3.1.0" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -24,12 +26,5 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <MSBuild BuildInParallel="true" 
-             Projects="$(regXwildSrcPath)regXwild\regXwild.vcxproj" 
-             Properties="Configuration=$(Configuration);Platform=Win32;CharacterSet=MultiByte;OutDir=$(regXwildSrcPath)bin\"
-             Targets="Build" />
-  </Target>
 
 </Project>
