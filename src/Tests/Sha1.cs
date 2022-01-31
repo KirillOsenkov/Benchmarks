@@ -32,7 +32,11 @@ namespace Tests
         [Benchmark]
         public void SHA1Cng()
         {
+#if NET472_OR_GREATER
             var bytes = new SHA1Cng().ComputeHash(stream);
+#else
+            var bytes = SHA1.Create().ComputeHash(stream);
+#endif
         }
 
         public void Dispose()
