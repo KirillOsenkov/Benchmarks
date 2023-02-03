@@ -9,10 +9,11 @@ using Microsoft.Win32.SafeHandles;
 
 namespace Tests
 {
-    // |    Method |      Mean |     Error |    StdDev |   Gen 0 | Allocated |
-    // |---------- |----------:|----------:|----------:|--------:|----------:|
-    // | Classical | 14.153 ms | 0.2807 ms | 0.2626 ms | 15.6250 |    149 KB |
-    // |  Win32Api |  8.066 ms | 0.1591 ms | 0.3027 ms |       - |     61 KB |
+    // |    Method |     Mean |     Error |    StdDev |   Gen 0 | Allocated |
+    // |---------- |---------:|----------:|----------:|--------:|----------:|
+    // | Classical | 7.478 ms | 0.1389 ms | 0.1231 ms | 15.6250 |    144 KB |
+    // |  Win32Api | 4.456 ms | 0.0561 ms | 0.0525 ms |  7.8125 |     59 KB |
+    // |  IoRedist | 3.258 ms | 0.0328 ms | 0.0307 ms | 11.7188 |     75 KB |
     [MemoryDiagnoser]
     public class DirectionEnumerationTests
     {
@@ -33,6 +34,17 @@ namespace Tests
             string directory = GetDirectory();
 
             DirectoryEnumeration.EnumerateDirectoryRecursive(directory, dir => true, file => { });
+        }
+
+        [Benchmark]
+        public void IoRedist()
+        {
+            string directory = GetDirectory();
+
+            var files = Microsoft.IO.Directory.EnumerateFiles(directory, "*", new Microsoft.IO.EnumerationOptions() { RecurseSubdirectories = true });
+            foreach (var file in files)
+            {
+            }
         }
 
         public static string GetDirectory()
