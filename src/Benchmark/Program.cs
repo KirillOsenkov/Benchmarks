@@ -11,9 +11,9 @@ namespace Benchmark
             // BenchmarkRunner.Run<Collections>();
             // BenchmarkRunner.Run<MethodGroupDelegate>();
             //BenchmarkRunner.Run<EmptyEnumerator>();
-            BenchmarkRunner.Run<DirectionEnumerationTests>();
+            BenchmarkRunner.Run<ConcurrentCollectionsTests>();
             // TestHashCollisions.Run();
-            // Console.ReadLine();
+            Console.ReadLine();
         }
     }
 }
