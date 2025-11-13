@@ -11,12 +11,11 @@ public class ConcurrentCollectionsTests
 {
     const int iterations = 100;
 
-    List<string> list = new List<string>();
-    ConcurrentBag<string> bag = new ConcurrentBag<string>();
-
     [Benchmark]
     public void ConcurrentBag()
     {
+        ConcurrentBag<string> bag = new ConcurrentBag<string>();
+
         for (int i = 0; i < iterations; i++)
         {
             bag.Add(i.ToString());
@@ -26,6 +25,8 @@ public class ConcurrentCollectionsTests
     [Benchmark]
     public void ListOfT()
     {
+        List<string> list = new List<string>();
+
         for (int i = 0; i < iterations; i++)
         {
             lock (list)
